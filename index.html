@@ -1,20 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<script src="https://giscus.app/client.js"
-        data-repo="pluto2105/2026-world-cup-analysis"
-        data-repo-id="R_kgDOSj-p8A"
-        data-category="General"
-        data-category-id="DIC_kwDOSj-p8M4C9i3q"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="en"
-        crossorigin="anonymous"
-        async>
-</script>    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +9,6 @@
     <meta name="description" content="An interactive deep-dive into the 2026 World Cup group stage draws using Elo ratings and official FIFA rankings to analyze competitiveness, group strength, and the top 10 marquee matches.">
     <meta name="keywords" content="2026 World Cup, World Cup Data Analysis, Elo Ratings, FIFA Rankings, Group of Death, Football Statistics, World Cup Predictions">
     <meta name="robots" content="index, follow">
-    <!-- Updated Canonical Link for Your Live Project URL -->
     <link rel="canonical" href="https://pluto2105.github.io/2026-world-cup-analysis/">
 
     <!-- Open Graph / Facebook Meta Tags -->
@@ -180,6 +164,13 @@
             color: #718096;
             margin-bottom: 0.75rem;
             font-weight: 500;
+        }
+
+        /* Comments Section Styling */
+        .comments-section {
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2.5rem;
         }
 
         /* --- Sticky Scrollable Table Framework --- */
@@ -803,7 +794,7 @@
                                     </tr>
                                     <tr>
                                         <td><strong>6</strong></td>
-                                        <td>🇲🇦 Morocco vs. 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland (Group C)</td>
+                                        <td>🇲🇦 Morocco vs. 🏴%E2%80%94%E2%80%94%E2%80%94%E2%80%94 Scotland (Group C)</td>
                                         <td class="font-mono">71</td>
                                         <td>🇮🇷 Iran vs. 🇪🇬 Egypt (Group G)</td>
                                         <td class="font-mono">52.06</td>
@@ -885,7 +876,7 @@
                                     </tr>
                                     <tr>
                                         <td><strong>5</strong></td>
-                                        <td>🇩慢 Germany vs. 🇨🇼 Curaçao (Group E)</td>
+                                        <td>🇩🇪 Germany vs. 🇨🇼 Curaçao (Group E)</td>
                                         <td class="font-mono">487</td>
                                         <td>🇦🇷 Argentina vs. 🇸🇦 Saudi Arabia (Group H)</td>
                                         <td class="font-mono">453.38</td>
@@ -929,6 +920,27 @@
                             </table>
                         </div>
                     </div>
+                </section>
+
+                <!-- --- GISCUS LIVE COMMENT STREAM COMPONENT --- -->
+                <section class="comments-section">
+                    <h2>Comments &amp; Discussion</h2>
+                    <div class="giscus"></div>
+                    <script src="https://giscus.app/client.js"
+                            data-repo="pluto2105/2026-world-cup-analysis"
+                            data-repo-id="R_kgDOODPPrw"
+                            data-category="Announcements"
+                            data-category-id="DIC_kwDOODPPr84Cnw6c"
+                            data-mapping="pathname"
+                            data-strict="0"
+                            data-reactions-enabled="1"
+                            data-emit-metadata="0"
+                            data-input-position="bottom"
+                            data-theme="light"
+                            data-lang="en"
+                            crossorigin="anonymous"
+                            async>
+                    </script>
                 </section>
 
                 <h2>Conclusion</h2>
