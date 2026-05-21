@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Math and Myth Behind the 2026 World Cup Group Stage</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="An interactive deep-dive into the 2026 World Cup group stage draws using Elo ratings and official FIFA rankings to analyze competitiveness, group strength, and the top 10 marquee matches.">
+    <meta name="keywords" content="2026 World Cup, World Cup Data Analysis, Elo Ratings, FIFA Rankings, Group of Death, Football Statistics, World Cup Predictions">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yourdomain.com/2026-world-cup-data-analysis">
+
+    <!-- Open Graph / Facebook Meta Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="The Math and Myth Behind the 2026 World Cup Group Stage">
+    <meta property="og:description" content="An interactive deep-dive into the 2026 World Cup group stage draws using Elo ratings and official FIFA rankings to analyze competitiveness, group strength, and the top 10 marquee matches.">
+    <meta property="og:url" content="https://yourdomain.com/2026-world-cup-data-analysis">
+    <meta property="og:site_name" content="World Cup Data Insights">
+
+    <style>
+        :root {
+            --bg-color: #f7f9fc;
+            --text-color: #2d3748;
+            --primary-color: #1a365d;
+            --accent-color: #c53030;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --table-header: #2b6cb0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 2rem;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.1rem;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            /* Fixed: Stripped ellipsis layout constraints to allow natural presentation across breakpoints */
+            word-wrap: break-word;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+
+        .meta {
+            font-style: italic;
+            color: #718096;
+            font-size: 0.95rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.75rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            color: #2c5282;
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        ul, ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        /* Explainer Block Styling */
+        .explainer-box {
+            background-color: #f7fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .explainer-box h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+
+        .metric-def {
+            margin-bottom: 1rem;
+        }
+
+        .metric-def strong {
+            color: #2b6cb0;
+        }
+
+        .metric-def a {
+            color: #3182ce;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .metric-def a:hover {
+            text-decoration: underline;
+        }
+
+        /* Marquee Match Callout Cards */
+        .match-card {
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-radius: 0 6px 6px 0;
+        }
+
+        .match-card h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .match-card .details {
+            font-size: 0.95rem;
+            color: #718096;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* --- Sticky Scrollable Table Framework --- */
+        .table-container {
+            position: relative;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: var(--card-bg);
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.82rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th:after {
+            content: ' ↕';
+            font-size: 0.7rem;
+            opacity: 0.5;
+        }
+        
+        th.sort-asc:after {
+            content: ' ↑';
+            opacity: 1;
+        }
+
+        th.sort-desc:after {
+            content: ' ↓';
+            opacity: 1;
+        }
+
+        /* Desktop Breakpoint: Pin columns only when screen size safely allows it */
+        @media (min-width: 768px) {
+            .sticky-col-1 {
+                position: sticky;
+                left: 0;
+                z-index: 2;
+                background-color: var(--card-bg);
+                box-shadow: 2px 0 5px -2px rgba(0,0,0,0.1);
+            }
+
+            /* Table 1 Exclusive: Pin column 2 only on wide views to completely mitigate content occlusion */
+            #tableGroupAnalytics .sticky-col-2 {
+                position: sticky;
+                left: 105px;
+                z-index: 2;
+                background-color: var(--card-bg);
+                box-shadow: 3px 0 5px -2px rgba(0,0,0,0.15);
+            }
+
+            th.sticky-col-1, th.sticky-col-2 {
+                background-color: var(--primary-color) !important;
+                z-index: 3;
+            }
+
+            tr:nth-child(even) td.sticky-col-1,
+            tr:nth-child(even) td.sticky-col-2 {
+                background-color: #f8fafc;
+            }
+        }
+
+        /* Mobile Viewport Fallbacks: Smooth standard scroll to avoid overlap artifacts */
+        @media (max-width: 767px) {
+            .sticky-col-1, .sticky-col-2 {
+                position: static !important;
+                box-shadow: none !important;
+            }
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .font-mono {
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+        }
+
+        footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        footer a {
+            color: #3182ce;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <article>
+            <header>
+                <h1>The Math and Myth Behind the 2026 World Cup Group Stage</h1>
+                <div class="meta">Published: May 20, 2026 • Interactive Statistical & Narrative Analysis</div>
+            </header>
+
+            <main>
+                <p>As the 48-team era of the 2026 FIFA World Cup approaches, fans worldwide are locked in familiar arguments over tactical formations, squad depth, and historic continental rivalries. But if you strip away the media narrative and look strictly at the raw numbers, a completely different story structuralizes itself.</p>
+
+                <p>By running the tournament’s finalized group draws through two distinct mathematical frameworks—the performance-weighted <strong>World Football Elo Ratings</strong> and the official <strong>FIFA Men's World Rankings</strong>—we can identify exactly where the real theater, predictable blowouts, and hidden bottlenecks live in the upcoming group stages.</p>
+
+                <!-- --- KEY METRIC EXPLAINER BOX WITH ACTIVE HYPERLINKS --- -->
+                <aside class="explainer-box" aria-label="Metrics and Methodology Explainer">
+                    <h3>Key Metrics &amp; Methodology Explainer</h3>
+                    <p>Before exploring the datasets below, it is useful to clarify what these mathematical values tell us about the tournament structure:</p>
+                    
+                    <div class="metric-def">
+                        <p><strong>1. Elo Ratings vs. Official FIFA Points</strong><br>
+                        The data utilizes two distinct models. The <a href="https://www.eloratings.net/" target="_blank" rel="noopener">Elo Ratings framework</a> is highly reactive, dynamically updating team values match-by-match based on real-time scores, goal margins, and opposition difficulty. The official <a href="https://inside.fifa.com/fifa-world-ranking/men" target="_blank" rel="noopener">FIFA framework website</a> tracks national team performances across a slower, long-term consistency curve weighted heavily toward historical tournament match categorization.</p>
+                    </div>
+
+                    <div class="metric-def">
+                        <p><strong>2. Group Total &amp; Average Points: Overall Strength</strong><br>
+                        The sum (Total) and mean (Average) values of the ratings within a group represent the <strong>overall strength</strong> of that group. A high total or average indicates a high concentration of elite, world-class squads pooled into a single bracket, identifying which groups contain the highest-quality rosters at the tournament.</p>
+                    </div>
+
+                    <div class="metric-def">
+                        <p><strong>3. Standard Deviation (SD): Internal Competitiveness</strong><br>
+                        While total points tell us how strong a group is overall, the Standard Deviation (SD) uniquely represents the <strong>internal competitiveness</strong> of a group. Rather than measuring sheer excellence, SD tracks the skill gap between the top seed and the bottom seed. 
+                        <span class="highlight">The lower the SD value, the higher the level of competitiveness.</span> 
+                        A low SD indicates that all four teams are tightly clustered in skill level, turning every match into an unpredictable coin flip. A high SD indicates a top-heavy group with a steep quality gulf between favorites and underdogs.</p>
+                    </div>
+
+                    <div class="metric-def">
+                        <p><strong>4. Competitiveness Rank (Comp. Rank)</strong><br>
+                        A comparative position from 1 to 12 assigned to the groups. The group with the absolute lowest SD (closest parity) is ranked <strong>1st</strong>, designating it as the hardest group to mathematically predict.</p>
+                    </div>
+                </aside>
+
+                <p><em>Note: All tables below are interactive. Click on any column header to toggle sorting. For extra wide tables, you can slide horizontally to compare values easily.</em></p>
+
+                <section>
+                    <h2>1. Group Strength vs. Internal Parity</h2>
+                    <p>In football lore, the "Group of Death" is typically defined as a collection of blue-blood, historical powerhouses smashed into a single bracket. By that traditional standard, <strong>Group I</strong> (featuring France, Norway, and Senegal) rules supreme in absolute Elo metrics, capturing the highest overall group strength.</p>
+
+                    <p>Comparatively speaking, a low standard deviation points us to a completely different type of chaos. By that baseline, <span class="highlight">Group D</span> is the truest, most brutal Group of Death in the tournament, securing the #1 Competitiveness Rank across both algorithmic systems due to its exceptionally low variance.</p>
+
+                    <h3>Table 1: Comprehensive Group Analytics (Elo vs. FIFA)</h3>
+                    <div class="table-container">
+                        <div class="table-scroll">
+                            <table id="tableGroupAnalytics">
+                                <thead>
+                                    <tr>
+                                        <th class="sticky-col-1" data-type="text">Group</th>
+                                        <th class="sticky-col-2" data-type="text">Teams (Ordered by Elo)</th>
+                                        <th data-type="number">Elo Total</th>
+                                        <th data-type="number">Elo Avg</th>
+                                        <th data-type="number">Elo SD</th>
+                                        <th data-type="number">Elo Comp. Rank</th>
+                                        <th data-type="number">FIFA Total</th>
+                                        <th data-type="number">FIFA Avg</th>
+                                        <th data-type="number">FIFA SD</th>
+                                        <th data-type="number">FIFA Comp. Rank</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group A</strong></td>
+                                        <td class="sticky-col-2">Spain, Mexico, South Korea, South Africa</td>
+                                        <td>7,298</td>
+                                        <td>1824.5</td>
+                                        <td>266.2</td>
+                                        <td>12</td>
+                                        <td>6,575.8</td>
+                                        <td>1644.0</td>
+                                        <td>186.5</td>
+                                        <td>8</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group B</strong></td>
+                                        <td class="sticky-col-2">Switzerland, Canada, Qatar, Bosnia and Herzegovina</td>
+                                        <td>6,947</td>
+                                        <td>1736.8</td>
+                                        <td>127.8</td>
+                                        <td>2</td>
+                                        <td>6,046.7</td>
+                                        <td>1511.7</td>
+                                        <td>115.5</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group C</strong></td>
+                                        <td class="sticky-col-2">Brazil, Morocco, Scotland, Haiti</td>
+                                        <td>7,189</td>
+                                        <td>1797.3</td>
+                                        <td>159.5</td>
+                                        <td>6</td>
+                                        <td>6,307.1</td>
+                                        <td>1576.8</td>
+                                        <td>226.2</td>
+                                        <td>11</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group D</strong></td>
+                                        <td class="sticky-col-2">Turkey (Türkiye), Paraguay, United States, Australia</td>
+                                        <td>7,175</td>
+                                        <td>1793.8</td>
+                                        <td class="highlight">89.7</td>
+                                        <td>1</td>
+                                        <td>6,356.3</td>
+                                        <td>1589.1</td>
+                                        <td class="highlight">69.7</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group E</strong></td>
+                                        <td class="sticky-col-2">Ecuador, Germany, Ivory Coast (Côte d'Ivoire), Curaçao</td>
+                                        <td>6,929</td>
+                                        <td>1732.3</td>
+                                        <td>240.5</td>
+                                        <td>10</td>
+                                        <td>6,152.8</td>
+                                        <td>1538.2</td>
+                                        <td>182.1</td>
+                                        <td>6</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group F</strong></td>
+                                        <td class="sticky-col-2">Netherlands, Japan, Sweden, Tunisia</td>
+                                        <td>7,195</td>
+                                        <td>1798.8</td>
+                                        <td>147.9</td>
+                                        <td>4</td>
+                                        <td>6,416.1</td>
+                                        <td>1604.0</td>
+                                        <td>128.4</td>
+                                        <td>4</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group G</strong></td>
+                                        <td class="sticky-col-2">Belgium, Iran, Egypt, New Zealand</td>
+                                        <td>6,780</td>
+                                        <td>1695.0</td>
+                                        <td>155.1</td>
+                                        <td>5</td>
+                                        <td>6,194.8</td>
+                                        <td>1548.7</td>
+                                        <td>192.0</td>
+                                        <td>9</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group H</strong></td>
+                                        <td class="sticky-col-2">Argentina, Uruguay, Saudi Arabia, Cape Verde (Cabo Verde)</td>
+                                        <td>7,190</td>
+                                        <td>1797.5</td>
+                                        <td>255.8</td>
+                                        <td>11</td>
+                                        <td>6,335.4</td>
+                                        <td>1583.9</td>
+                                        <td>235.5</td>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group I</strong></td>
+                                        <td class="sticky-col-2">France, Norway, Senegal, Iraq</td>
+                                        <td>7,463</td>
+                                        <td>1865.8</td>
+                                        <td>199.6</td>
+                                        <td>8</td>
+                                        <td>6,564.4</td>
+                                        <td>1641.1</td>
+                                        <td>186.0</td>
+                                        <td>7</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group J</strong></td>
+                                        <td class="sticky-col-2">Austria, Czech Republic (Czechia), Algeria, Jordan</td>
+                                        <td>6,703</td>
+                                        <td>1675.8</td>
+                                        <td>137.8</td>
+                                        <td>3</td>
+                                        <td>6,050.5</td>
+                                        <td>1512.6</td>
+                                        <td>89.5</td>
+                                        <td>2</td>
+                            </tr>
+                            <tr>
+                                        <td class="sticky-col-1"><strong>Group K</strong></td>
+                                        <td class="sticky-col-2">Portugal, Colombia, Uzbekistan, DR Congo</td>
+                                        <td>7,261</td>
+                                        <td>1815.3</td>
+                                        <td>199.6</td>
+                                        <td>7</td>
+                                        <td>6,400.6</td>
+                                        <td>1600.2</td>
+                                        <td>151.0</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group L</strong></td>
+                                        <td class="sticky-col-2">England, Croatia, Panama, Ghana</td>
+                                        <td>7,193</td>
+                                        <td>1798.3</td>
+                                        <td>227.8</td>
+                                        <td>9</td>
+                                        <td>6,430.0</td>
+                                        <td>1607.5</td>
+                                        <td>210.1</td>
+                                        <td>10</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>2. Inner-Group Trios vs. Isolated Outliers</h2>
+                    <p>By evaluating every possible 3-team combination within a group, we can isolate the tightest competitive core from the group's true statistical outlier. This reveals whether a group's high variance is caused by a runaway powerhouse or a severely outmatched underdog.</p>
+
+                    <p>Consider Groups A and H. On paper, they look scattered. Yet, when the algorithm purges the top seeds, the data isolates <strong>Spain</strong> and <strong>Argentina</strong> as massive powerhouse outliers. The remaining trios fall into remarkably flat sub-clusters. For these teams, the race for 1st place is virtually predetermined, but the dogfight for 2nd will be cutthroat.</p>
+
+                    <h3>Table 2: Three-Team Collections and Outlier Isolation</h3>
+                    <div class="table-container">
+                        <div class="table-scroll">
+                            <table id="tableCollections">
+                                <thead>
+                                    <tr>
+                                        <th class="sticky-col-1" data-type="text">Group</th>
+                                        <th data-type="text">Elo Competitive Trio</th>
+                                        <th data-type="text">Elo Outlier</th>
+                                        <th data-type="number">Elo Core SD</th>
+                                        <th data-type="number">Elo Comp. Rank</th>
+                                        <th data-type="text">FIFA Competitive Trio</th>
+                                        <th data-type="text">FIFA Outlier</th>
+                                        <th data-type="number">FIFA Core SD</th>
+                                        <th data-type="number">FIFA Comp. Rank</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group A</strong></td>
+                                        <td>Mexico, South Korea, South Africa</td>
+                                        <td>Spain (Power)</td>
+                                        <td>170.2</td>
+                                        <td>12</td>
+                                        <td>Mexico, South Korea, South Africa</td>
+                                        <td>Spain (Power)</td>
+                                        <td>127.1</td>
+                                        <td>8</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group B</strong></td>
+                                        <td>Canada, Qatar, Bosnia</td>
+                                        <td>Switzerland (Power)</td>
+                                        <td>95.1</td>
+                                        <td>2</td>
+                                        <td>Canada, Qatar, Bosnia</td>
+                                        <td>Switzerland (Power)</td>
+                                        <td>85.8</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group C</strong></td>
+                                        <td>Brazil, Morocco, Scotland</td>
+                                        <td>Haiti (Under)</td>
+                                        <td>110.6</td>
+                                        <td>6</td>
+                                        <td>Brazil, Morocco, Scotland</td>
+                                        <td>Haiti (Under)</td>
+                                        <td>150.2</td>
+                                        <td>11</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group D</strong></td>
+                                        <td>Paraguay, USA, Australia</td>
+                                        <td>Turkey (Power)</td>
+                                        <td class="highlight">65.2</td>
+                                        <td class="highlight">1</td>
+                                        <td>Turkey, USA, Australia</td>
+                                        <td>Paraguay (Under)</td>
+                                        <td>48.9</td>
+                                        <td class="highlight">1</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group E</strong></td>
+                                        <td>Ecuador, Germany, Ivory Coast</td>
+                                        <td>Curaçao (Under)</td>
+                                        <td>168.1</td>
+                                        <td>10</td>
+                                        <td>Ecuador, Germany, Ivory Coast</td>
+                                        <td>Curaçao (Under)</td>
+                                        <td>101.0</td>
+                                        <td>6</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group F</strong></td>
+                                        <td>Netherlands, Japan, Sweden</td>
+                                        <td>Tunisia (Under)</td>
+                                        <td>123.1</td>
+                                        <td>4</td>
+                                        <td>Japan, Sweden, Tunisia</td>
+                                        <td>Netherlands (Power)</td>
+                                        <td>94.6</td>
+                                        <td>4</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group G</strong></td>
+                                        <td>Belgium, Iran, Egypt</td>
+                                        <td>New Zealand (Under)</td>
+                                        <td>103.6</td>
+                                        <td>5</td>
+                                        <td>Belgium, Iran, Egypt</td>
+                                        <td>New Zealand (Under)</td>
+                                        <td>87.9</td>
+                                        <td>9</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group H</strong></td>
+                                        <td>Uruguay, Saudi Arabia, Cape Verde</td>
+                                        <td>Argentina (Power)</td>
+                                        <td>178.3</td>
+                                        <td>11</td>
+                                        <td>Uruguay, Saudi Arabia, Cape Verde</td>
+                                        <td>Argentina (Power)</td>
+                                        <td>163.6</td>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group I</strong></td>
+                                        <td>France, Norway, Senegal</td>
+                                        <td>Iraq (Under)</td>
+                                        <td>112.6</td>
+                                        <td>8</td>
+                                        <td>Norway, Senegal, Iraq</td>
+                                        <td>France (Power)</td>
+                                        <td>121.3</td>
+                                        <td>7</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group J</strong></td>
+                                        <td>Austria, Czechia, Algeria</td>
+                                        <td>Jordan (Under)</td>
+                                        <td>88.8</td>
+                                        <td>3</td>
+                                        <td>Austria, Czechia, Algeria</td>
+                                        <td>Jordan (Under)</td>
+                                        <td class="highlight">47.1</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group K</strong></td>
+                                        <td>Portugal, Colombia, Uzbekistan</td>
+                                        <td>DR Congo (Under)</td>
+                                        <td>145.9</td>
+                                        <td>7</td>
+                                        <td>Colombia, Uzbekistan, DR Congo</td>
+                                        <td>Portugal (Power)</td>
+                                        <td>127.9</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sticky-col-1"><strong>Group L</strong></td>
+                                        <td>England, Croatia, Panama</td>
+                                        <td>Ghana (Under)</td>
+                                        <td>144.6</td>
+                                        <td>9</td>
+                                        <td>England, Croatia, Panama</td>
+                                        <td>Ghana (Under)</td>
+                                        <td>144.0</td>
+                                        <td>10</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>3. The Myth and Narrative: 10 Most Anticipated Group Blockbusters</h2>
+                    <p>While standard deviations and statistical margins help pinpoint the absolute tightest mathematical matches, football is fundamentally fueled by history, regional friction, and the human narrative. Below are the 10 most anticipated matches of the group stage, ranked by public interest, historical tournament legacy, and elite powerhouse status.</p>
+
+                    <div class="match-card">
+                        <h4>1. Brazil vs. Morocco (Group C)</h4>
+                        <div class="details">Date: June 13, 2026 | Stadium: MetLife Stadium (New York/New Jersey)</div>
+                        <p><strong>The Narrative:</strong> A brilliant collision of cultural football styles. Brazil represents the ultimate historical gold standard of international football, while Morocco enters carrying the legacy of their historic trailblazing run as global giant-killers. Statistically, this is the marquee highlight of the official FIFA dataset—separated by a microscopic 5.29-point gap, making it a certified elite heavyweight blockbuster.</p>
+                    </div>
+
+                    <div class="match-card">
+                        <h4>2. England vs. Croatia (Group L)</h4>
+                        <div class="details">Date: June 17, 2026 | Stadium: AT&T Stadium (Dallas, Texas)</div>
+                        <p><strong>The Narrative:</strong> A modern, bad-blooded classic rivalry dripping in recent major tournament trauma. From the heartbreak of the 2018 World Cup Semifinal to high-stakes European Championship gridlocks, England and Croatia have formed a deeply intense competitive grudge. It pits England's immense generation of attacking talent against Croatia's timeless midfield orchestrators who refuse to back down on the grandest stages.</p>
+                    </div>
+
+                    <div class="match-card">
+                        <h4>3. Netherlands vs. Japan (Group F)</h4>
+                        <div class="details">Date: June 14, 2026 | Stadium: AT&T Stadium (Dallas, Texas)</div>
+                        <p><strong>The Narrative:</strong> A purist tactician's ultimate dream fixture. The Dutch arrive backed by their heritage of positional fluidity and a robust, modern defensive core. Japan, no longer a mere dark horse, represents one of the most organized, lightning-fast transitional tactical machines in the sport. This promises a highly advanced chess match between total Dutch structural spacing and the relentless counter-pressing engine of the Samurai Blue.</p>
+                    </div>
+
+                    <div class="match-card">
+                        <h4>4. France vs. Senegal (Group I)</h4>
+                        <div class="details">Date: June 16, 2026 | Stadium: MetLife Stadium (New York/New Jersey)</div>
+                        <p><strong>The Narrative:</strong> A high-voltage historical rematch loaded with deep emotional undercurrents. Ever since Senegal stunned reigning champions France in the opening match of the 2002 World Cup, this fixture has held a mythic aura. In 2026, it represents a brutal physical and technical test, pitching France’s world-class athletic speed against the defensive power and continental pride of a star-studded Senegal side.</p>
+                    </div>
+
+                    <div class="match-card">
+                        <h4>5. Spain vs. Uruguay (Group H)</h4>
+                        <div class="details">Date: June 24, 2026 (Projected Group Finale) | Stadium: Host Stadium Matrix Grid</div>
+                        <p><strong>The Narrative:</strong> A prestigious generational clash of football philosophies. Spain's hypnotic, possession-oriented midfield machinery meets the uncompromising, high-pressing tenacity of Uruguay's new wave of elite hybrid midfielders. As two top-15 statistical units, this match dictates the absolute power structure of Group H, with the loser running into a potential bracket nightmare early in the knockouts.</p>
+                    </div>
+
+                    <div class="match-card">
+                        <h4>6. Ecuador vs. Germany (Group E)</h4>
+                        <div class="details">Date: June 25, 2026 | Stadium: MetLife Stadium (New York/New Jersey)</div>
+                        <p><strong>The Narrative:</strong> Traditional European royalty under extreme pressure meets South America’s most terrifying rising force. Germany enters carrying the heavy psychological tax of past tournament disappointments, desperate to re-establish their identity. Ecuador, meanwhile, is built to break giants, blending extreme youth, explosive athleticism, and a highly synchronized structural shape that sits just 10 Elo points away from the Germans.</p>
+                    </div>
+
+                    <div class="match-card">
+                        <h4>7. Portugal vs. Colombia (Group K)</h4>
+                        <div class="details">Date: June 27, 2026 | Stadium: Host Stadium Matrix Grid</div>
+                        <p><strong>The Narrative:</strong> An explosive cross-continental battle of pure individual flair and technique. Portugal's tactical depth and depth of elite creative playmakers collide head-on with Colombia's rhythmic, highly physical, and emotionally charged style of attacking play. Separated by an Elo point line of just 9 points, it is mathematically poised as a dead-heat coin flip for group domination.</p>
+                    </div>
+
+                    <div class="match-card">
+                        <h4>8. United States vs. Australia (Group D)</h4>
+                        <div class="details">Date: June 19, 2026 | Stadium: Lumen Field (Seattle, Washington)</div>
+                        <p><strong>The Narrative:</strong> The mathematical centerpiece of the tournament's most balanced group. While it may lack the blue-blood history of other fixtures, public interest is sky-high as the co-hosts play a crucial match on home soil. With a razor-thin Elo separation of just 2 points, this match is a direct, hyper-competitive battle for knockout survival inside the absolute gridlock of Group D.</p>
+                    </div>
+
+                    <div class="match-card">
+                        <h4>9. Mexico vs. South Korea (Group A)</h4>
+                        <div class="details">Date: June 19, 2026 | Stadium: Estadio Guadalajara (Guadalajara, Mexico)</div>
+                        <p><strong>The Narrative:</strong> A thunderous, high-octane stadium atmosphere pairing host nation pressure against elite Asian discipline. Mexico will rely on intense home-crowd energy to mask recent structural vulnerabilities, while South Korea arrives with a highly disciplined, world-class transition structure. The tactical friction between Mexican emotion and Korean counter-attacking efficiency will make this an instant classic.</p>
+                    </div>
+
+                    <div class="match-card">
+                        <h4>10. Belgium vs. Iran (Group G)</h4>
+                        <div class="details">Date: June 21, 2026 | Stadium: Los Angeles Stadium (Los Angeles, California)</div>
+                        <p><strong>The Narrative:</strong> A highly dangerous tactical trap for an elite seed. Belgium's evolving squad transitions away from its old generation, looking to unlock defenses with modern, dynamic wingers. They face an Iran national team that is notoriously stubborn, defensive, and masters of low-block frustration. This fixture stands as the signature test of whether an elite seed can break down defensive discipline under intense global scrutiny.</p>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>4. Opening Round Individual Match Metrics</h2>
+                    <p>The statistical margins below capture the numerical reality behind the narratives above, defining the closest tactical margins and the largest structural skill gaps in the group stages.</p>
+
+                    <h3>Table 3: Top 10 Closest Projected Matches</h3>
+                    <div class="table-container">
+                        <div class="table-scroll">
+                            <table id="tableClosest">
+                                <thead>
+                                    <tr>
+                                        <th data-type="number">Rank</th>
+                                        <th data-type="text">Elo Ratings Matchup</th>
+                                        <th data-type="number">Elo Diff</th>
+                                        <th data-type="text">Official FIFA Matchup</th>
+                                        <th data-type="number">FIFA Diff</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>1</strong></td>
+                                        <td>🇺🇸 United States vs. 🇦🇺 Australia (Group D)</td>
+                                        <td class="font-mono">2</td>
+                                        <td>🇧🇷 Brazil vs. 🇲🇦 Morocco (Group C)</td>
+                                        <td class="font-mono">5.29</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>2</strong></td>
+                                        <td>🇵🇹 Portugal vs. 🇨🇴 Colombia (Group K)</td>
+                                        <td class="font-mono">9</td>
+                                        <td>🇺🇿 Uzbekistan vs. 🇨🇩 DR Congo (Group K)</td>
+                                        <td class="font-mono">13.01</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>3</strong></td>
+                                        <td>🇪🇨 Ecuador vs. 🇩🇪 Germany (Group E)</td>
+                                        <td class="font-mono">10</td>
+                                        <td>🇹🇷 Turkey vs. 🇦🇺 Australia (Group D)</td>
+                                        <td class="font-mono">18.37</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>4</strong></td>
+                                        <td>🇳🇴 Norway vs. 🇸🇳 Senegal (Group I)</td>
+                                        <td class="font-mono">43</td>
+                                        <td>🇦🇹 Austria vs. 🇩🇿 Algeria (Group J)</td>
+                                        <td class="font-mono">29.19</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>5</strong></td>
+                                        <td>🇹🇷 Turkey vs. 🇵🇾 Paraguay (Group D)</td>
+                                        <td class="font-mono">69</td>
+                                        <td>🇸🇪 Sweden vs. 🇹🇳 Tunisia (Group F)</td>
+                                        <td class="font-mono">31.72</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>6</strong></td>
+                                        <td>🇲🇦 Morocco vs. 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland (Group C)</td>
+                                        <td class="font-mono">71</td>
+                                        <td>🇮🇷 Iran vs. 🇪🇬 Egypt (Group G)</td>
+                                        <td class="font-mono">52.06</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>7</strong></td>
+                                        <td>🇨🇿 Czechia vs. 🇩🇿 Algeria (Group J)</td>
+                                        <td class="font-mono">76</td>
+                                        <td>🇸🇦 Saudi Arabia vs. 🇨🇻 Cape Verde (Group H)</td>
+                                        <td class="font-mono">55.30</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>8</strong></td>
+                                        <td>🇳🇱 Netherlands vs. 🇯🇵 Japan (Group F)</td>
+                                        <td class="font-mono">82</td>
+                                        <td>🇪🇨 Ecuador vs. 🇨🇮 Ivory Coast (Group E)</td>
+                                        <td class="font-mono">61.80</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>9</strong></td>
+                                        <td>🇸🇪 Sweden vs. 🇹🇳 Tunisia (Group F)</td>
+                                        <td class="font-mono">83</td>
+                                        <td>🇨🇿 Czechia vs. 🇩🇿 Algeria (Group J)</td>
+                                        <td class="font-mono">62.88</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>10</strong></td>
+                                        <td>🇶🇦 Qatar vs. 🇧🇦 Bosnia &amp; Herz. (Group B)</td>
+                                        <td class="font-mono">86</td>
+                                        <td>🇶🇦 Qatar vs. 🇧🇦 Bosnia &amp; Herz. (Group B)</td>
+                                        <td class="font-mono">69.12</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <h3>Table 4: Top 10 Largest Projected Mismatches</h3>
+                    <div class="table-container">
+                        <div class="table-scroll">
+                            <table id="tableMismatches">
+                                <thead>
+                                    <tr>
+                                        <th data-type="number">Rank</th>
+                                        <th data-type="text">Elo Ratings Matchup</th>
+                                        <th data-type="number">Elo Diff</th>
+                                        <th data-type="text">Official FIFA Matchup</th>
+                                        <th data-type="number">FIFA Diff</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>1</strong></td>
+                                        <td>🇪🇸 Spain vs. 🇿🇦 South Africa (Group A)</td>
+                                        <td class="font-mono">641</td>
+                                        <td>🇦🇷 Argentina vs. 🇨🇻 Cape Verde (Group H)</td>
+                                        <td class="font-mono">508.68</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>2</strong></td>
+                                        <td>🇦🇷 Argentina vs. 🇨🇻 Cape Verde (Group H)</td>
+                                        <td class="font-mono">564</td>
+                                        <td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs. 🇬🇭 Ghana (Group L)</td>
+                                        <td class="font-mono">479.66</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>3</strong></td>
+                                        <td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs. 🇬🇭 Ghana (Group L)</td>
+                                        <td class="font-mono">514</td>
+                                        <td>🇧🇷 Brazil vs. 🇭🇹 Haiti (Group C)</td>
+                                        <td class="font-mono">469.45</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>4</strong></td>
+                                        <td>🇪🇨 Ecuador vs. 🇨🇼 Curaçao (Group E)</td>
+                                        <td class="font-mono">497</td>
+                                        <td>🇲🇦 Morocco vs. 🇭🇹 Haiti (Group C)</td>
+                                        <td class="font-mono">464.16</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>5</strong></td>
+                                        <td>🇩🇪 Germany vs. 🇨🇼 Curaçao (Group E)</td>
+                                        <td class="font-mono">487</td>
+                                        <td>🇦🇷 Argentina vs. 🇸🇦 Saudi Arabia (Group H)</td>
+                                        <td class="font-mono">453.38</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>6</strong></td>
+                                        <td>🇫🇷 France vs. 🇮🇶 Iraq (Group I)</td>
+                                        <td class="font-mono">482</td>
+                                        <td>🇧🇪 Belgium vs. 🇳🇿 New Zealand (Group G)</td>
+                                        <td class="font-mono">453.14</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>7</strong></td>
+                                        <td>🇦🇷 Argentina vs. 🇸🇦 Saudi Arabia (Group H)</td>
+                                        <td class="font-mono">477</td>
+                                        <td>🇪🇸 Spain vs. 🇿🇦 South Africa (Group A)</td>
+                                        <td class="font-mono">446.67</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>8</strong></td>
+                                        <td>🇭🇷 Croatia vs. 🇬🇭 Ghana (Group L)</td>
+                                        <td class="font-mono">424</td>
+                                        <td>🇩🇪 Germany vs. 🇨🇼 Curaçao (Group E)</td>
+                                        <td class="font-mono">435.72</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>9</strong></td>
+                                        <td>🇪🇸 Spain vs. 🇰🇷 South Korea (Group A)</td>
+                                        <td class="font-mono">413</td>
+                                        <td>🇫🇷 France vs. 🇮🇶 Iraq (Group I)</td>
+                                        <td class="font-mono">430.18</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>10</strong></td>
+                                        <td>🇵🇹 Portugal vs. 🇨🇩 DR Congo (Group K)</td>
+                                        <td class="font-mono">409</td>
+                                        <td>🇭🇷 Croatia vs. 🇬🇭 Ghana (Group L)</td>
+                                        <td class="font-mono">370.76</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <h2>Conclusion</h2>
+                <p>Whether your strategy aligns with the reactive, fluid nature of the Elo system or the long-term consistency curves of the official FIFA rankings, data strips away the media spin. The numbers suggest that while casual fans tune in to watch top-tier heavyweights flex their muscles in predictable environments, the truest tactical drama of the tournament will play out inside the absolute gridlock of Group D. Let the games begin, and let the variance roll.</p>
+            </main>
+
+            <footer>
+                <p><strong>Data &amp; References:</strong></p>
+                <p>All statistical metrics, group assignments, tournament scheduling timelines, and calculations are compiled directly from database records updated as of <strong>May 20, 2026</strong>.</p>
+                <ul>
+                    <li>Men's National Team Elo indices sourced directly via <a href="https://www.eloratings.net/" target="_blank" rel="noopener">World Football Elo Ratings</a>.</li>
+                    <li>Official Men's World Rankings tracking sheets compiled via <a href="https://inside.fifa.com/fifa-world-ranking/men" target="_blank" rel="noopener">FIFA World Ranking Men's Index</a>.</li>
+                </ul>
+            </footer>
+        </article>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const makeTableSortable = (tableId) => {
+                const table = document.getElementById(tableId);
+                const headers = table.querySelectorAll('th');
+                const tbody = table.querySelector('tbody');
+                
+                headers.forEach((header, index) => {
+                    header.addEventListener('click', () => {
+                        const type = header.getAttribute('data-type');
+                        const rows = Array.from(tbody.querySelectorAll('tr'));
+                        const isAscending = header.classList.contains('sort-asc');
+                        
+                        headers.forEach(h => h.classList.remove('sort-asc', 'sort-desc'));
+                        
+                        const direction = isAscending ? -1 : 1;
+                        header.classList.add(isAscending ? 'sort-desc' : 'sort-asc');
+                        
+                        rows.sort((rowA, rowB) => {
+                            let cellA = rowA.children[index].textContent.trim();
+                            let cellB = rowB.children[index].textContent.trim();
+                            
+                            cellA = cellA.replace(/,/g, '');
+                            cellB = cellB.replace(/,/g, '');
+                            
+                            if (type === 'number') {
+                                return (parseFloat(cellA) - parseFloat(cellB)) * direction;
+                            } else {
+                                return cellA.localeCompare(cellB) * direction;
+                            }
+                        });
+                        
+                        rows.forEach(row => tbody.appendChild(row));
+                    });
+                });
+            };
+
+            makeTableSortable('tableGroupAnalytics');
+            makeTableSortable('tableCollections');
+            makeTableSortable('tableClosest');
+            makeTableSortable('tableMismatches');
+        });
+    </script>
+</body>
+</html>
